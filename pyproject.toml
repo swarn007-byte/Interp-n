@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "interp-n"
+version = "1.0.0"
+description = "Physics-aware satellite frame interpolation engine"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "torch>=2.0.0",
+  "torchvision>=0.15.0",
+  "numpy>=1.24.0",
+  "scipy>=1.10.0",
+  "opencv-python>=4.7.0",
+  "xarray",
+  "netCDF4",
+  "h5netcdf",
+  "h5py",
+  "s3fs",
+  "requests",
+  "tqdm",
+  "scikit-image",
+  "matplotlib",
+  "pyyaml",
+]
+
+[tool.setuptools.packages.find]
+include = ["src*"]

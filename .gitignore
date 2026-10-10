@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+*.pt
+*.pth
+!weights/best_olk_residual_unet.pt
+!weights/README.md
+
+# Data (large, never commit raw satellite data)
+/data/
+*.nc
+*.npy
+*.npz
+/outputs/
+manifests/*.json
+!manifests/.gitkeep
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.log

@@ -1,0 +1,46 @@
+# Interp-n shared configuration
+satellite: goes16
+product: ABI-L2-CMIPF
+channel: 13
+bt_min: 180.0
+bt_max: 330.0
+cold_threshold_k: 235.0
+crop: 512
+patch_size: 256
+stride: 128          # 50% overlap -> Hanning partition-of-unity
+full_disk_hw: [5424, 5424]
+
+paths:
+  raw_root: data/raw
+  baseline_npz: outputs/baseline/triplet_and_predictions.npz
+  refiner_dir: outputs/unet_refiner
+  refiner_weights: outputs/unet_refiner/best_small_residual_unet.pt
+  shipped_weights: weights/best_olk_residual_unet.pt
+  eval_dir: outputs/unet_refiner_eval
+
+refiner:
+  base: 32
+  epochs: 3
+  batch_size: 2
+  samples_per_epoch: 64
+  lr: 0.0002
+  weight_decay: 0.0001
+  loss_weights:
+    l1_weight: 1.0
+    ssim_weight: 2.5
+    gradient_weight: 1.8
+    cold_weight: 0.8
+    residual_weight: 0.3
+    cold_threshold_k: 235.0
+
+hybrid:
+  iters: 8
+  epochs: 40
+  max_batches: 1000
+  batch_size: 8
+  accum_steps: 4
+  lr: 0.0005
+  weight_decay: 0.0001
+  train_s3: "noaa-goes18/ABI-L2-CMIPF/2024/250/*/*C13*.nc"
+  val_s3: "noaa-goes18/ABI-L2-CMIPF/2024/255/18/*C13*.nc"
+  checkpoint_out: FINAL_BEST_CHECKPOINT.pth
